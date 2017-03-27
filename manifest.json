@@ -1,0 +1,52 @@
+{
+  "name": "http-editer-mapping", 
+  "version": "3.2", 
+"manifest_version": 2,  
+  "minimum_chrome_version" : "17.0.0", 
+  "browser_action": {  
+    "default_icon": "icon.png" ,
+    "default_title": "http-editor",
+    "default_popup": "background.html"
+  }/**, "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }
+  } ,
+	"sockets": {
+    "tcpServer" : {
+      "listen": ["*"]
+	 }
+	}**/,
+  "permissions": [       
+        "tabs",
+ "nativeMessaging",            
+           "*://*/*",
+    "activeTab",
+    "tabs",
+    "contextMenus",
+    "webRequest",
+     "webRequestBlocking",
+    "storage",
+	"nativeMessaging",
+	"system.network"
+     ],
+	"content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+		"js": ["app/jquery-1.11.3.min.js","app/js/inject.js"],
+	 // "matches":["http://www.2cto.com/*","http://www.wooyun.org/user.php?action=login*","https://www.baidu.com/*"],
+	  "run_at": "document_start",
+	  "all_frames":true
+	  
+    }
+  ],
+"content_security_policy": "script-src 'self' 'unsafe-eval' object-src 'self'",
+  "web_accessible_resources": [
+    "extjs/*",
+    "imgs/map/sound.gif",
+	"js/*",
+	"images/*"
+  ],
+"manifest_version": 2
+
+ }
