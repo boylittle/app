@@ -9,7 +9,7 @@ var Tasks = {index:current_uid==null?0:current_uid};
 function loadFrom(){
 	var keys=getStore();
 	if(keys.length<1){
-		var retData=$.ajax({url:"http://files.cnblogs.com/files/developer-ios/data.js",async:false});
+		var retData=$.ajax({url:"https://raw.githubusercontent.com/boylittle/app/master/app/js/config/data.js",async:false});
 		
 		if(retData&&retData.responseText){
 			var retText=retData.responseText;
