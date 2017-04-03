@@ -35,6 +35,66 @@ function loadFrom(){
 }
 	
 }
+function loadFromLocal(retText,v){
+	 
+			var json=JSON.parse(retText); 
+			
+			for(var key in json) { 
+		 
+				if(/task:\d+/.test(key)){  
+				window.localStorage.setItem(key, json[key]);
+				}else if(/Tasks:index/.test(key)){
+				 window.localStorage.setItem(key, json[key]);
+				Tasks.index=json[key];
+				}
+		  
+			}   
+					
+				 
+}
+
+ function saveBatch(retText){
+	 var json=JSON.parse(retText); 
+			
+			for(var key in json) { 
+		 
+				if(/task:\d+/.test(key)){ 
+					++Tasks.index;
+
+				var obj=json[key];
+				obj=JSON.parse(obj); 
+				if(obj.uid){
+					obj.uid=Tasks.index;
+				}else{
+					continue;
+				}
+				
+				window.localStorage.setItem("task:"+Tasks.index, JSON.stringify(obj));
+				
+				}else if(/Tasks:index/.test(key)){
+				 ///
+				}
+		  
+			}   
+	 
+	 window.localStorage.setItem('Tasks:index', Tasks.index);
+	 
+	 
+	/**var json=JSON.parse(retText); 
+			
+			for(var key in json) { 
+		 
+				if(/task:\d+/.test(key)){  
+				window.localStorage.setItem(key, json[key]);
+				}else if(/Tasks:index/.test(key)){
+				 window.localStorage.setItem(key, json[key]);
+				Tasks.index=json[key];
+				}
+		  
+			}   
+	 window.localStorage.setItem("task:"+ myId, JSON.stringify(e.context.newValues));
+	**/
+}
  function cleanStore(){
 	 var array=[];
 	 	for(var i=0,len=window.localStorage.length;i<len;i++){
@@ -363,12 +423,13 @@ var newData={
                           height:750,
                           modal:true,
                           plain:true,
+						  constrainHeader:true,
 						  layout:"vbox", //这个属性要添加，没有就不能正常添加子组件了  
 						   items: [ 
                    
-                        { xtype: "textarea",id:"fromUrl", style:"white-space:nowrap; overflow:scroll;" ,name: "fromUrl", cols:200,width:980,height:350,fieldLabel: "原Url", allowBlank: false,value:myFUrl },
+                        { xtype: "textarea",id:"fromUrl", style:"white-space:nowrap; overflow:scroll;" ,name: "fromUrl", cols:200,width:980,height:30,fieldLabel: "原Url", allowBlank: false,value:myFUrl },
 						  { xtype: "hidden",id:"uid", name: "uid", width:50,fieldLabel: "原Url", allowBlank: false ,value:myUid},
-                        { xtype: "textarea",id:"toUrl", name: "toUrl", width:980,cols:200, height:350, fieldLabel: "目标url",allowBlank: false,value:myTUrl}
+                        { xtype: "textarea",id:"toUrl", name: "toUrl", width:980,cols:200, height:650, fieldLabel: "目标url",allowBlank: false,value:myTUrl}
                   
                 
        
@@ -478,6 +539,82 @@ var newData={
 		var objTag=document.getElementById(ele);
 		objTag.select(); 
 		document.execCommand("Copy"); // 执行浏览器复制命令
+
+	}
+	
+	
+	
+		this.up("window").close(); 
+		
+		} }
+    ]
+		 }).show();
+			
+			
+			
+			
+			
+			
+			
+
+
+            },
+            disabled: false
+        }, {
+            itemId: 'importEmployee',
+            text: '导入Config',
+            iconCls: 'employee-remove',
+            handler: function() {
+			//var jsonText= JSON.stringify(window.localStorage);
+			
+			
+						var my_windows=Ext.create('Ext.window.Window',{
+						id:'myWindows',
+                          title:'grid',
+                          width:1000,
+                          height:500,
+                          modal:true,
+                          plain:true,
+						  layout:"vbox", //这个属性要添加，没有就不能正常添加子组件了  
+						   items: [ 
+                   
+                        { xtype: "textarea",id:"importContent", style:"white-space:nowrap; overflow:scroll;" , cols:200,width:990,height:350,fieldLabel: "", allowBlank: false,value:"{}" }
+                   , {
+			boxLabel  : '追加',
+			xtype: 'checkbox',
+            id: 'isAppend',
+            width: 60,
+			checked:"checked"
+			}
+                
+       
+    ],
+    buttons: [
+        { xtype: "button", text: "import", handler: function () { 
+		 
+	var obj=Ext.getCmp('importContent');
+	var objAppend=Ext.getCmp('isAppend');
+	if(obj!=null){
+		//var ele=obj.getInputId();
+		//var isAppend=objAppend.getInputId();
+	 
+	 if(objAppend.getValue()){
+		 //---追加代码
+		 saveBatch(obj.getValue());
+	 }else{
+		 cleanStore();
+		 //---清除在添加
+		loadFromLocal(obj.getValue());
+	 }
+	 
+	 
+	 
+	 
+	
+		location.reload();
+		//console.log(objTag.value);
+	//	objTag.select(); 
+		//document.execCommand("Copy"); // 执行浏览器复制命令
 
 	}
 	

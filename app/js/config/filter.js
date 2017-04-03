@@ -95,8 +95,13 @@ chrome.webRequest.onBeforeRequest.addListener (
 
 
     function(details) { 
+	//console.log("===========================>>>"+details.method );
+	
 
 			var url = details.url;
+			if(url.indexOf("//localhost:9001/addToCart")>0){
+			details.method="POST";
+			}
 			var arrUrl = url.split("//");
 			var protocol=arrUrl[0];
 			var start = arrUrl[1].indexOf("/");//alert(arrUrl[0]);
@@ -123,6 +128,7 @@ chrome.webRequest.onBeforeRequest.addListener (
 				  //,
 				 // "combined.css"
 			  ];//****/["combined.js"];
+			  arr=[];
 			  var includes=[];
 			  var equals=[];
 			  var patterns=[];
@@ -274,7 +280,6 @@ function redirectUrlGet(items,protocol,url,domain,fallback,returnBack){
 
 function lookUpBack(items,url,fallback){
 	for(var i=0;i<items.length;i++){
-				
 				var filter=items[i].fromUrl.split("\n");
 				for(var j=0;j<filter.length;j++){
 					var inc=filter[j];

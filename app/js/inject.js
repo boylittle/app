@@ -2,7 +2,12 @@
 var url=location.href;
 
 chrome.extension.sendRequest({greeting: url,status:"before"}, function(response) {
- 
+		 var s = document.createElement("script");
+		s.src = chrome.extension.getURL("app/js/pageInject.js");
+		s.onload = function() {
+			this.remove();
+		};
+(document.head || document.documentElement).appendChild(s);
    if( (typeof response)=="undefined"||response==null||response=={}||(typeof response.farewell)=="undefined"){
 	   return ; 
    }
@@ -27,6 +32,8 @@ $(document).ready(function(){
   
 
 
+  
+  
 /**(function(){
 	console.log("contentscript injected!");
 

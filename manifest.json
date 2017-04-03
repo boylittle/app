@@ -45,7 +45,9 @@
     "extjs/*",
     "imgs/map/sound.gif",
 	"js/*",
-	"images/*"
+	"images/*",
+	"app/js/pageInject.js"
+	 
   ],
 "manifest_version": 2
 
