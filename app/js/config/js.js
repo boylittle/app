@@ -9,7 +9,7 @@ var Tasks = {index:current_uid==null?0:current_uid};
 function loadFrom(){
 	var keys=getStore();
 	if(keys.length<1){
-		var retData=$.ajax({url:"http://files.cnblogs.com/files/developer-ios/data.js",async:false});
+		var retData=$.ajax({url:"https://raw.githubusercontent.com/boylittle/app/master/app/js/config/data.js",async:false});
 		
 		if(retData&&retData.responseText){
 			var retText=retData.responseText;
@@ -54,6 +54,9 @@ function loadFromLocal(retText,v){
 }
 
  function saveBatch(retText){
+	 if(!retText){
+		 return;
+	 }
 	 var json=JSON.parse(retText); 
 			
 			for(var key in json) { 
@@ -512,7 +515,30 @@ var newData={
             text: '导出Config',
             iconCls: 'employee-remove',
             handler: function() {
-			var jsonText= JSON.stringify(window.localStorage);
+				var jsonText="{}";
+				  var sm = grid.getSelectionModel();
+                rowEditing.cancelEdit();
+				var item=sm.getSelection();
+				
+				
+				/////
+			if(item.length==1){
+				 var myUid=item[0].data["uid"]; 
+				var selectOne=  window.localStorage.getItem("task:"+ myUid); 
+				 if(selectOne){
+					var key=("task:"+ myUid);
+					var objs={};
+					objs["task:"+ myUid]=selectOne;
+					jsonText= JSON.stringify(objs);
+				 }else{
+					  alert("已经丢失");
+				 }
+				
+			}else{
+				jsonText= JSON.stringify(window.localStorage);
+				
+			}
+				 
 			
 			
 						var my_windows=Ext.create('Ext.window.Window',{
@@ -578,7 +604,7 @@ var newData={
 						  layout:"vbox", //这个属性要添加，没有就不能正常添加子组件了  
 						   items: [ 
                    
-                        { xtype: "textarea",id:"importContent", style:"white-space:nowrap; overflow:scroll;" , cols:200,width:990,height:350,fieldLabel: "", allowBlank: false,value:"{}" }
+                        { xtype: "textarea",id:"importContent", style:"white-space:nowrap; overflow:scroll;" , cols:200,width:990,height:350,fieldLabel: "", selectOnFocus:true ,allowBlank: false,value:"{}" }
                    , {
 			boxLabel  : '追加',
 			xtype: 'checkbox',
@@ -597,7 +623,7 @@ var newData={
 	if(obj!=null){
 		//var ele=obj.getInputId();
 		//var isAppend=objAppend.getInputId();
-	 
+	
 	 if(objAppend.getValue()){
 		 //---追加代码
 		 saveBatch(obj.getValue());
@@ -628,9 +654,7 @@ var newData={
 			
 			
 			
-			
-			
-			
+		 
 			
 
 
