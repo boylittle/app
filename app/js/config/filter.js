@@ -3,15 +3,65 @@ chrome.tabs.query({active:true}, function(tab) {
         console.log(tab.id+"====>");
     });
 **/
+ 
+	var typeMap = {
+    "txt"   : "text/plain",
+    "html"  : "text/html",
+    "css"   : "text/css",
+    "js"    : "text/javascript",
+    "json"  : "text/json",
+    "xml"   : "text/xml",
+    "jpg"   : "image/jpeg",
+    "gif"   : "image/gif",
+    "png"   : "image/png",
+    "webp"  : "image/webp"
+}
 
 
-
-
-
+function getImageURL(file){
+	var img=new image();
+	img.src=file;
 	
+	return getBase64Image(img);
+}
+
+function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
+        var dataURL = canvas.toDataURL("image/"+ext);
+        return dataURL;
+}
+function getLocalFileUrl(url) {
+    var arr = url.split('.');
+    var type = arr[arr.length-1];
+	type=type.toLowerCase();
+	if(type=="jpg"||type=="png"||type=="gif"){
+		var base64Str= getBase64Image(url);
+		alert(base64Str);
+	}
 	
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', url, false);
+    xhr.send(null);
+    var content = xhr.responseText || xhr.responseXML;
+    if (!content) {
+        return false;
+    }
+    content = encodeURIComponent(
+        type === 'js' ?
+        content.replace(/[\u0080-\uffff]/g, function($0) {
+            var str = $0.charCodeAt(0).toString(16);
+            return "\\u" + '00000'.substr(0, 4 - str.length) + str;
+        }) : content
+    );
+    return ("data:" + (typeMap[type] || typeMap.txt) + ";charset=utf-8," + content);
+}
 	
-	String.prototype.startWith=function(str){     
+String.prototype.startWith=function(str){     
   var reg=new RegExp("^"+str);     
   return reg.test(this);        
 }  
@@ -91,12 +141,14 @@ chrome.extension.onRequest.addListener(
 chrome.webRequest.onBeforeRequest.addListener (
 
 
-
+//chrome.exe --args --disable-web-security --user-data-dir
 
 
     function(details) { 
-	//console.log("===========================>>>"+details.method );
-	
+	 
+			// var content=getLocalFileUrl("file:///D:/test.txt"); 
+			
+			
 
 			var url = details.url;
 			if(url.indexOf("//localhost:9001/addToCart")>0){
@@ -176,7 +228,7 @@ chrome.webRequest.onBeforeRequest.addListener (
 			if(lookUpBack(ignores,url,isInclude)){
 				return {redirectUrl: url};
 			} 
-			 
+			
             //完全匹配
 			var redEqualsUrl=redirectUrlGet(equals,protocol,url,domain,isEquals,allBack);
 			if(redEqualsUrl){
@@ -265,7 +317,11 @@ function isPattern(url,spUrl,item){
 }
 function allBack(item,protocol,url,domain){
 	var locale=item.toUrl;
+	if(item.isdisk){
+		return {redirectUrl:getLocalFileUrl(locale)};
+	}
 	var localUrl=jumpUrl(locale,protocol,url,domain);
+	
 	return {redirectUrl: localUrl}; 
 }
 function redirectUrlGet(items,protocol,url,domain,fallback,returnBack){
@@ -334,6 +390,9 @@ function lookUpBack(items,url,fallback){
 		return localUrl;
 		
 	}
+	
+	
+
 	 
 /**
  function(details) {

@@ -28,7 +28,8 @@
      "webRequestBlocking",
     "storage",
 	"nativeMessaging",
-	"system.network"
+	"system.network",
+	 "unlimitedStorage"
      ],
 	"content_scripts": [
     {

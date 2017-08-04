@@ -161,6 +161,7 @@ Ext.onReady(function(){
 				{name:'equal',type:'bool'},
 			  { name: 'inject', type: 'bool' },
 			   { name: 'ignore', type: 'bool' },
+			   { name: 'isdisk', type: 'bool' },
 			   { name: 'readyBefore', type: 'bool' }
         ]
     });
@@ -298,6 +299,15 @@ Ext.onReady(function(){
                 xtype: 'checkbox',
                 cls: 'x-grid-checkheader-editor'
             }
+        }, {
+			xtype: 'checkcolumn',
+            header: '硬盘',
+            dataIndex: 'isdisk',
+            width: 60,
+            editor: {
+                xtype: 'checkbox',
+                cls: 'x-grid-checkheader-editor'
+            }
         },{
 			xtype: 'checkcolumn',
             header: 'ready前执行js',
@@ -328,6 +338,7 @@ var newData={
 					include:false,
 					equal:false,
 					inject:false,
+					isdisk:false,
 					ignore:false,
 					readyBefore:false
 					
