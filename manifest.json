@@ -17,6 +17,7 @@
       "listen": ["*"]
 	 }
 	}**/,
+"default_locale": "en",
   "permissions": [       
         "tabs",
  "nativeMessaging",            
