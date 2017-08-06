@@ -1,0 +1,130 @@
+{
+"id": {
+    "message": "id",
+    "description": "The name of the application"
+  },
+"title": {
+    "message": "title",
+    "description": "The name of the application"
+  },
+  "fromUrl": {
+    "message": "fromUrl",
+    "description": "The name of the application"
+  },
+  "toUrl": {
+    "message": "toUrl",
+    "description": "The name of the application"
+  },
+  "active": {
+    "message": "active",
+    "description": "The name of the application"
+  },
+  "pattern": {
+    "message": "pattern",
+    "description": "The description of the application"
+  },
+"include": {
+    "message": "include",
+    "description": "The name of the application"
+  },
+"equal": {
+    "message": "equal",
+    "description": "The name of the application"
+  }
+  ,
+"inject": {
+    "message": "injection",
+    "description": "The name of the application"
+  }
+  ,
+"isdisk": {
+    "message": "isdisk",
+    "description": "The name of the application"
+  },
+"ignore": {
+    "message": "ignore",
+    "description": "The name of the application"
+  },
+"readyBefore": {
+    "message": "readyBefore",
+    "description": "The name of the application"
+  }
+  ,
+"add": {
+    "message": "add",
+    "description": "The name of the application"
+  },
+"loadFromNet": {
+    "message": "load from net",
+    "description": "The name of the application"
+  },
+"loadTitle": {
+    "message": "Instructions",
+    "description": "The name of the application"
+  },
+"loadInfo": {
+    "message": "Please manually clear the local data (before you can export the backup), and then download the data.",
+    "description": "The name of the application"
+  },
+"delete": {
+    "message": "delete",
+    "description": "The name of the application"
+  },
+"edit": {
+    "message": "edit target url",
+    "description": "The name of the application"
+  },
+"cleanAll": {
+    "message": "clean all",
+    "description": "The name of the application"
+  }
+ ,
+"exports": {
+    "message": "exports",
+    "description": "The name of the application"
+  },
+"import": {
+    "message": "import",
+    "description": "The name of the application"
+  }
+   ,
+"save": {
+    "message": "save",
+    "description": "The name of the application"
+  },
+"cancel": {
+    "message": "cancel",
+    "description": "The name of the application"
+  }
+ ,
+"confirm": {
+    "message": "confirm",
+    "description": "The name of the application"
+  }
+   ,
+"copy": {
+    "message": "copy",
+    "description": "The name of the application"
+  }
+  ,
+"append": {
+    "message": "append",
+    "description": "The name of the application"
+  },
+"onlySelectOne": {
+    "message": "only Select One!",
+    "description": "The name of the application"
+  }
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+}

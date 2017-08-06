@@ -1,3 +1,15 @@
+var getLocal_iso=navigator.appName
+var langueUsing="en";
+if (getLocal_iso=="Netscape"){
+langueUsing = navigator.language
+}
+else{
+langueUsing = navigator.userLanguage
+}
+
+function $i18n(key){
+	return chrome.i18n.getMessage(key);
+}
 var current_uid=window.localStorage.getItem('Tasks:index');
 var Tasks = {index:current_uid==null?0:current_uid};
 /**jQuery(document).ready(function(){
@@ -159,9 +171,9 @@ Ext.onReady(function(){
 			 { name: 'pattern', type: 'bool' },
 			  { name: 'include', type: 'bool' },
 				{name:'equal',type:'bool'},
-			  { name: 'inject', type: 'bool' },
+			  { name: 'inject', type: 'bool' }, 
+			  { name: 'isdisk', type: 'bool' },
 			   { name: 'ignore', type: 'bool' },
-			   { name: 'isdisk', type: 'bool' },
 			   { name: 'readyBefore', type: 'bool' }
         ]
     });
@@ -198,8 +210,8 @@ Ext.onReady(function(){
        /** clicksToMoveEditor: 1,
         autoCancel: false**/
 		 pluginId:'rowEditing',
-            saveBtnText: '保存', 
-            cancelBtnText: "取消", 
+            saveBtnText: $i18n("save"), 
+            cancelBtnText: $i18n("cancel"), 
             autoCancel: false, 
             clicksToEdit:2,   //双击进行修改  1-单击   2-双击    0-可取消双击/单击事件
 		viewConfig:{forceFit:true,autoFill:true,markDirty:false} 
@@ -212,7 +224,7 @@ Ext.onReady(function(){
         store: store,
         columns: [{
 			 
-            header: '标识列',
+            header: $i18n("id"),
             dataIndex: 'uid',
             width: 40,
             editor: { 
@@ -220,7 +232,7 @@ Ext.onReady(function(){
                 allowBlank: false
             }
         },{
-            header: '标题',
+            header: $i18n('title'),
             dataIndex: 'title',
             width: 100,
             editor: {
@@ -229,25 +241,27 @@ Ext.onReady(function(){
             }
         }, {
 			
-            header: '原url',
+            header: $i18n('fromUrl'),
             dataIndex: 'fromUrl',
-            flex: 3,
+            flex: 1,
+		   //width: 100,
             editor: {
 				xtype: 'textarea',
                 allowBlank: false
             }
         }, {
 			
-            header: '目标url',
+            header: $i18n('toUrl'),
             dataIndex: 'toUrl',
-            flex: 1,
+            //flex: 1,
+			width: 100,
             editor: {
 				xtype: 'textarea',
                 allowBlank: false
             }
         }, {
 			xtype: 'checkcolumn',
-            header: '启用',
+            header:  $i18n('active'),
             dataIndex: 'active',
             width: 60,
             editor: {
@@ -256,7 +270,7 @@ Ext.onReady(function(){
             }
         }, {
 			xtype: 'checkcolumn',
-            header: '正则匹配',
+            header:  $i18n('pattern'),
             dataIndex: 'pattern',
             width: 60,
             editor: {
@@ -265,7 +279,7 @@ Ext.onReady(function(){
             }
         }, {
 			xtype: 'checkcolumn',
-            header: '包含',
+            header: $i18n('include'),
             dataIndex: 'include',
             width: 60,
             editor: {
@@ -274,7 +288,7 @@ Ext.onReady(function(){
             }
         }, {
 			xtype: 'checkcolumn',
-            header: '完全一致',
+            header: $i18n('equal'),
             dataIndex: 'equal',
             width: 60,
             editor: {
@@ -283,7 +297,7 @@ Ext.onReady(function(){
             }
         }, {
 			xtype: 'checkcolumn',
-            header: '注入',
+            header: $i18n('inject'),
             dataIndex: 'inject',
             width: 60,
             editor: {
@@ -292,8 +306,8 @@ Ext.onReady(function(){
             }
         }, {
 			xtype: 'checkcolumn',
-            header: '忽略',
-            dataIndex: 'ignore',
+            header: $i18n('isdisk'),
+            dataIndex: 'isdisk',
             width: 60,
             editor: {
                 xtype: 'checkbox',
@@ -301,8 +315,8 @@ Ext.onReady(function(){
             }
         }, {
 			xtype: 'checkcolumn',
-            header: '硬盘',
-            dataIndex: 'isdisk',
+            header: $i18n('ignore'),
+            dataIndex: 'ignore',
             width: 60,
             editor: {
                 xtype: 'checkbox',
@@ -310,7 +324,7 @@ Ext.onReady(function(){
             }
         },{
 			xtype: 'checkcolumn',
-            header: 'ready前执行js',
+            header: $i18n('readyBefore'),
             dataIndex: 'readyBefore',
             width: 60,
             editor: {
@@ -319,18 +333,18 @@ Ext.onReady(function(){
             }
         }],
         renderTo: 'editor-grid',
-        width: 1000,
+        width: 1200,
         height: 550,
         title: 'URL MAPPING',
         frame: true,
         tbar: [{
-            text: '添加一项',
+            text: $i18n("add"),
             iconCls: 'employee-add',
             handler : function() {
                 rowEditing.cancelEdit();
 var newData={
 					uid:++Tasks.index,
-                    title: '标题',
+                    title: $i18n("title"),
                     fromUrl: 'http://url.com',
 					toUrl: 'localhost',
                     active: true,
@@ -354,11 +368,11 @@ var newData={
             }
         }, {
             itemId: 'loadEmployee',
-            text: '网络加载',
+            text: $i18n("loadFromNet"),
             iconCls: 'employee-add',
             handler: function() {
 				
-				Ext.Msg.confirm("操作提示","请手动清空本地数据（清空前，可以导出备份）,然后再下载数据。",function(btn){  
+				Ext.Msg.confirm($i18n("loadTitle"),$i18n("loadInfo"),function(btn){  
 			//	grid.getSelectionModel().deselectAll(true);  
 				if(btn=='yes'){  
 				loadFrom();
@@ -375,7 +389,7 @@ var newData={
             disabled: false
         }, {
             itemId: 'removeEmployee',
-            text: '删除',
+            text: $i18n("delete"),
             iconCls: 'employee-remove',
             handler: function() {
 				
@@ -418,7 +432,7 @@ var newData={
             disabled: false
         },{
             itemId: 'editTargetUrl',
-            text: 'edit目标url',
+            text: $i18n("edit"),
             iconCls: 'employee-remove',
             handler: function() {
 				
@@ -441,15 +455,15 @@ var newData={
 						  layout:"vbox", //这个属性要添加，没有就不能正常添加子组件了  
 						   items: [ 
                    
-                        { xtype: "textarea",id:"fromUrl", style:"white-space:nowrap; overflow:scroll;" ,name: "fromUrl", cols:200,width:980,height:30,fieldLabel: "原Url", allowBlank: false,value:myFUrl },
-						  { xtype: "hidden",id:"uid", name: "uid", width:50,fieldLabel: "原Url", allowBlank: false ,value:myUid},
-                        { xtype: "textarea",id:"toUrl", name: "toUrl", width:980,cols:200, height:650, fieldLabel: "目标url",allowBlank: false,value:myTUrl}
+                        { xtype: "textarea",id:"fromUrl", style:"white-space:nowrap; overflow:scroll;" ,name: "fromUrl", cols:200,width:980,height:30,fieldLabel: $i18n("fromUrl"), allowBlank: false,value:myFUrl },
+						  { xtype: "hidden",id:"uid", name: "uid", width:50,fieldLabel: $i18n("fromUrl"), allowBlank: false ,value:myUid},
+                        { xtype: "textarea",id:"toUrl", name: "toUrl", width:980,cols:200, height:650, fieldLabel: $i18n("toUrl"),allowBlank: false,value:myTUrl}
                   
                 
        
     ],
     buttons: [
-        { xtype: "button", text: "确定", handler: function () { 
+        { xtype: "button", text: $i18n("confirm"), handler: function () { 
 		var obj=window.localStorage.getItem("task:"+ myUid);
 		if(obj){
 			obj=JSON.parse(obj);
@@ -466,7 +480,7 @@ var newData={
 		this.up("window").close(); 
 		
 		} },
-        { xtype: "button", text: "取消", handler: function () {
+        { xtype: "button", text: $i18n("cancel"), handler: function () {
 			
 			this.up("window").close();
 
@@ -482,7 +496,7 @@ var newData={
 				
 				
 			}else{
-				alert("只能选择项");
+				alert($i18n("onlySelectOne"));
 			}
 			 
 					
@@ -497,7 +511,7 @@ var newData={
             disabled: false
         }, {
             itemId: 'clearEmployee',
-            text: '清空',
+            text: $i18n("cleanAll"),
             iconCls: 'employee-remove',
             handler: function() {
 				 
@@ -523,7 +537,7 @@ var newData={
             disabled: false
         }, {
             itemId: 'exportEmployee',
-            text: '导出Config',
+            text: $i18n("exports"),
             iconCls: 'employee-remove',
             handler: function() {
 				var jsonText="{}";
@@ -568,7 +582,7 @@ var newData={
        
     ],
     buttons: [
-        { xtype: "button", text: "copy", handler: function () { 
+        { xtype: "button", text: $i18n("copy"), handler: function () { 
 		 
 	var obj=Ext.getCmp('exportContent');
 	if(obj!=null){
@@ -599,7 +613,7 @@ var newData={
             disabled: false
         }, {
             itemId: 'importEmployee',
-            text: '导入Config',
+            text: $i18n("import"),
             iconCls: 'employee-remove',
             handler: function() {
 			//var jsonText= JSON.stringify(window.localStorage);
@@ -617,7 +631,7 @@ var newData={
                    
                         { xtype: "textarea",id:"importContent", style:"white-space:nowrap; overflow:scroll;" , cols:200,width:990,height:350,fieldLabel: "", selectOnFocus:true ,allowBlank: false,value:"{}" }
                    , {
-			boxLabel  : '追加',
+			boxLabel: $i18n("append"),
 			xtype: 'checkbox',
             id: 'isAppend',
             width: 60,

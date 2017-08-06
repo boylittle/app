@@ -1,0 +1,123 @@
+{
+"id": {
+    "message": "标识",
+    "description": "The name of the application"
+  },
+"title": {
+    "message": "标题",
+    "description": "The name of the application"
+  },
+  "fromUrl": {
+    "message": "拦截的url",
+    "description": "The name of the application"
+  },
+  "toUrl": {
+    "message": "目标url",
+    "description": "The name of the application"
+  },
+  "active": {
+    "message": "是否激活",
+    "description": "The name of the application"
+  },
+  "pattern": {
+    "message": "正则匹配",
+    "description": "The description of the application"
+  },
+"include": {
+    "message": "包含",
+    "description": "The name of the application"
+  },
+"equal": {
+    "message": "相同",
+    "description": "The name of the application"
+  }
+  ,
+  
+"inject": {
+    "message": "脚本注入",
+    "description": "The name of the application"
+  }
+  ,
+"isdisk": {
+    "message": "硬盘映射",
+    "description": "The name of the application"
+  },
+"ignore": {
+    "message": "忽略",
+    "description": "The name of the application"
+  },
+"readyBefore": {
+    "message": "ready前执行js",
+    "description": "The name of the application"
+  }
+   ,
+"add": {
+    "message": "添加",
+    "description": "The name of the application"
+  } ,
+"loadFromNet": {
+    "message": "从网络加载",
+    "description": "The name of the application"
+  },
+"loadTitle": {
+    "message": "操作提示",
+    "description": "The name of the application"
+  },
+"loadInfo": {
+    "message": "请手动清空本地数据（清空前，可以导出备份）,然后再下载数据。",
+    "description": "The name of the application"
+  },
+  
+"delete": {
+    "message": "删除",
+    "description": "The name of the application"
+  }
+  ,
+"edit": {
+    "message": "edit目标url",
+    "description": "The name of the application"
+  }
+ ,
+"cleanAll": {
+    "message": "清除所有项",
+    "description": "The name of the application"
+  }
+ ,
+"exports": {
+    "message": "导出项",
+    "description": "The name of the application"
+  },
+"import": {
+    "message": "导入项",
+    "description": "The name of the application"
+  }
+   ,
+"save": {
+    "message": "保存",
+    "description": "The name of the application"
+  },
+"cancel": {
+    "message": "取消",
+    "description": "The name of the application"
+  }
+   ,
+"confirm": {
+    "message": "确认",
+    "description": "The name of the application"
+  }
+  ,
+"copy": {
+    "message": "复制",
+    "description": "The name of the application"
+  },
+"append": {
+    "message": "追加",
+    "description": "The name of the application"
+  },
+"onlySelectOne": {
+    "message": "只能选择一项!",
+    "description": "The name of the application"
+  }
+ 
+
+}
