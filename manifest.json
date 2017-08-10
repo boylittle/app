@@ -47,8 +47,10 @@
     "extjs/*",
     "imgs/map/sound.gif",
 	"js/*",
-	"images/*",
-	"app/js/pageInject.js"
+	"images/*",	
+	"app/js/keyEvent.js",
+	"app/js/ajaxEvent.js",
+	"app/js/common.js"
 	 
   ],
 "manifest_version": 2
