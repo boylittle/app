@@ -41,6 +41,18 @@
     "message": "isdisk",
     "description": "The name of the application"
   },
+"isReplace": {
+    "message": "ReplaceText",
+    "description": "The name of the application"
+  } ,
+"isAppend": {
+    "message": "AppendText",
+    "description": "The name of the application"
+  } ,
+"isUnshift": {
+    "message": "headText",
+    "description": "The name of the application"
+  },
 "ignore": {
     "message": "ignore",
     "description": "The name of the application"
