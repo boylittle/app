@@ -1,5 +1,7 @@
-
-window.addEventListener("load",function() {
+ï»¿window.addEventListener("load",function() {
+	if(typeof(jQuery)!="undefined"){
+	if($("input[value*='CMSPageInfo']").length>0){console.log("=============å½“å‰ç½‘é¡µ PK==================>>"+$("input[value*='CMSPageInfo']").get(0).value.replace("CMSPageInfo : PK=",""));}
+	}
 	if (document.addEventListener){
 		document.addEventListener("keyup",fnKeyup,true);
 	}
@@ -484,13 +486,23 @@ function modifyResponse(response) {
     var original_response, modified_response;
 
     if (this.readyState === 4) {
-        // ????? openBypass ?§Ò???????????§Ø??????????
+        // ????? openBypass ????????????????????????
+	
+		if(response!=null&&response.target!=null&&response.target.responseText!=null){
+			if(this.responseText!=null&&this.responseText.indexOf("Intel Core i5-7300U Processor (3MB Cache, up to 3.50 GHz)")>=0){
+				
+				alert(crome_listen_url+"============"+this.responseText);
+			}
+			
+		}
         if (this.requestUrl  && this.requestMethod ) {
             original_response = response.target.responseText;
+			
             Object.defineProperty(this, "responseText", {writable: true});
             modified_response = JSON.parse(original_response);
-            // ???? sendBypass ?§Ò??????????????????
+            // ???? sendBypass ????????????????????
             this.responseText = JSON.stringify(modified_response);
+			
         }
     }
 }
@@ -504,7 +516,31 @@ function openBypass(original_function) {
         this.requestURL = url;
 		crome_listen_url=this.requestURL;
 
-        this.addEventListener("readystatechange", modifyResponse);
+        this.addEventListener("readystatechange", function(response) {
+
+				var original_response, modified_response;
+
+				if (this.readyState === 4) {
+					// ????? openBypass ????????????????????????
+				
+					if(response!=null&&response.target!=null&&response.target.responseText!=null){
+						if(this.responseText!=null&&this.responseText.indexOf("sfProactiveChat")>=0){
+							alert(url+"======@@@@@@@@@@@@@@@@@@@====================");
+							console.log(url+"======@@@@@@@@@@@@@@@@@@@====================");
+						}
+						
+					}
+					if (this.requestUrl  && this.requestMethod ) {
+						original_response = response.target.responseText;
+						
+						Object.defineProperty(this, "responseText", {writable: true});
+						modified_response = JSON.parse(original_response);
+						// ???? sendBypass ????????????????????
+						this.responseText = JSON.stringify(modified_response);
+						
+					}
+				}
+});
         return original_function.apply(this, arguments);
     };
 
@@ -516,7 +552,7 @@ function sendBypass(original_function) {
         this.requestData = data;
 		if(crome_listen_url.indexOf("dynaTraceMonitor")<0){ 
 			//console.log(crome_listen_url+"=======>>>"+data);
-			//console.log(crome_listen_url+"=======>>>");
+			console.log(crome_listen_url+"=======>>>");
 		}
 		
         return original_function.apply(this, arguments);

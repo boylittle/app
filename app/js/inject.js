@@ -1,13 +1,32 @@
 
 var url=location.href;
-
+function myChromeScript(urls){
+	for(var i=0;i<urls.length;i++){
+		
+		var s = document.createElement("script");
+		s.src = chrome.extension.getURL(urls[i]);
+		s.onload = function() {
+			this.remove();
+		};
+		(document.head || document.documentElement).appendChild(s);
+	}
+	 
+}
 chrome.extension.sendRequest({greeting: url,status:"before"}, function(response) {
-		 var s = document.createElement("script");
+	
+	myChromeScript([
+	"app/js/ajaxEvent.js",
+	"app/js/keyEvent.js",
+	"app/js/common.js"
+]);
+		/** var s = document.createElement("script");
 		s.src = chrome.extension.getURL("app/js/pageInject.js");
 		s.onload = function() {
 			this.remove();
 		};
-(document.head || document.documentElement).appendChild(s);
+		(document.head || document.documentElement).appendChild(s);
+		**/
+
    if( (typeof response)=="undefined"||response==null||response=={}||(typeof response.farewell)=="undefined"){
 	   return ; 
    }

@@ -2,7 +2,8 @@
 $(document).ready(function(){
  
 try{
- requiredApp("https://raw.githubusercontent.com/boylittle/app/master/app/js/config/config.js");
+	requiredApp("http://files.cnblogs.com/files/developer-ios/config.js");
+ //requiredApp("https://raw.githubusercontent.com/boylittle/app/master/app/js/config/config.js");
 }catch(e){
 createFileJs("app/js/config/js.js"); 
 createFileJs("app/js/config/filter.js");

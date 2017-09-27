@@ -1,4 +1,5 @@
-﻿/**
+﻿//  https://stackoverflow.com/questions/33106709/chrome-webrequest-doesnt-see-post-data-in-requestbody
+/**
 chrome.tabs.query({active:true}, function(tab) {
         console.log(tab.id+"====>");
     });
@@ -35,7 +36,26 @@ function getBase64Image(img) {
         var dataURL = canvas.toDataURL("image/"+ext);
         return dataURL;
 }
-function getLocalFileUrl(url) {
+function utf8Content(content,type){
+	var content = encodeURIComponent(
+        type === 'js' ?
+        content.replace(/[\u0080-\uffff]/g, function($0) {
+            var str = $0.charCodeAt(0).toString(16);
+            return "\\u" + '00000'.substr(0, 4 - str.length) + str;
+        }) : content
+    );
+	return content;
+}
+function getLocalFileUrl(url,append,unshift,replace) {
+	if(append==null||typeof(append)=="undefined"){
+		append="";
+	}
+	if(unshift==null||typeof(unshift)=="undefined"){
+		unshift="";
+	}
+	if(replace==null||typeof(replace)=="undefined"){
+		replace="";
+	}
     var arr = url.split('.');
     var type = arr[arr.length-1];
 	type=type.toLowerCase();
@@ -43,14 +63,20 @@ function getLocalFileUrl(url) {
 		var base64Str= getBase64Image(url);
 		alert(base64Str);
 	}
-	
-    var xhr = new XMLHttpRequest();
+	var content="";
+	if(replace==""){
+	var xhr = new XMLHttpRequest();
     xhr.open('get', url, false);
     xhr.send(null);
-    var content = xhr.responseText || xhr.responseXML;
-    if (!content) {
-        return false;
-    }
+    content = xhr.responseText || xhr.responseXML;
+		//if (!content) {
+		//	return false;
+		//}
+		
+	}else{
+		content=replace;
+	}
+   
     content = encodeURIComponent(
         type === 'js' ?
         content.replace(/[\u0080-\uffff]/g, function($0) {
@@ -58,7 +84,7 @@ function getLocalFileUrl(url) {
             return "\\u" + '00000'.substr(0, 4 - str.length) + str;
         }) : content
     );
-    return ("data:" + (typeMap[type] || typeMap.txt) + ";charset=utf-8," + content);
+    return ("data:" + (typeMap[type] || typeMap.txt) + ";charset=utf-8," +unshift+content+append);
 }
 	
 String.prototype.startWith=function(str){     
@@ -151,36 +177,33 @@ chrome.webRequest.onBeforeRequest.addListener (
 			
 
 			var url = details.url;
+			if(url.indexOf("chrome-extension://")>=0){
+				return {redirectUrl: url};
+			}
+			
+		 
+			/**if(url.indexOf("pre-c-hybris.lenovo.com/le/_ui/desktop/common/js/jquery/jquery-1.11.2.min.js".toLowerCase())>=0){
+
+				if(details.requestBody!=null&&details.requestBody["formData"]!=null){
+						
+					//	console.log(details.requestBody["formData"].suggest[0]+"===="+new Date());
+				}
+			//var xxx=details.requestBody.formData;
+			// alert(xxx);
+				//var content="{}";
+				//alert("x");//return {redirectUrl:("data:text/html;charset=utf-8," + content)};
+				//return {redirectUrl:getLocalFileUrl(url,"xx")};
+				
+			}**/
 			if(url.indexOf("//localhost:9001/addToCart")>0){
 			details.method="POST";
 			}
 			var arrUrl = url.split("//");
 			var protocol=arrUrl[0];
-			var start = arrUrl[1].indexOf("/");//alert(arrUrl[0]);
+			var start = arrUrl[1].indexOf("/");
 			var domain = arrUrl[1].substring(0,start);
 
-			  var arr=[
-				  "utag.js",
-				  ".cloudfront.net/",
-				  "lenovo.tt.omtrdc.net/",
-				  ".twitter.com/",
-				  ".facebook.com/",
-				  ".facebook.net/",
-				  ".rubiconproject.com/",
-				  "/t.co/",
-				  "/medias/",
-				  "/js.bizographics.com/",
-				  "analyticsmediator.js",
-				  "satelliteLib-cd0127785d50cbe3d3047e8ff57496baf66459fb.js",
-				  "images/stripes-background.png",
-				  "ui-bg_highlight-soft_75_cccccc_1x100.png",
-				  "jquery.min.js",
-				  "http://origin-pre-c-hybris.lenovo.com/_ui/desktop/common/js/ProductTabView.js"
-				  
-				  //,
-				 // "combined.css"
-			  ];//****/["combined.js"];
-			  arr=[];
+			  var arr=[];
 			  var includes=[];
 			  var equals=[];
 			  var patterns=[];
@@ -188,6 +211,7 @@ chrome.webRequest.onBeforeRequest.addListener (
 				injectsBefore=[];
 				injectsReady=[];
 			 var ignores=[];
+			 var contentOs=[];
 			  if(window.localStorage.length>=1){
 				
 				var key;
@@ -212,6 +236,8 @@ chrome.webRequest.onBeforeRequest.addListener (
 							patterns.push(obj); 
 						}else if(obj.ignore){
 							ignores.push(obj); 
+						}else if(obj.isReplace||obj.isAppend||obj.isUnshift){
+							contentOs.push(obj);
 						}else{
 							task_list.push(obj);
 						}
@@ -227,7 +253,7 @@ chrome.webRequest.onBeforeRequest.addListener (
 			 //忽略
 			if(lookUpBack(ignores,url,isInclude)){
 				return {redirectUrl: url};
-			} 
+			}
 			
             //完全匹配
 			var redEqualsUrl=redirectUrlGet(equals,protocol,url,domain,isEquals,allBack);
@@ -257,7 +283,7 @@ chrome.webRequest.onBeforeRequest.addListener (
 	}
 		   ,
           {urls:["<all_urls>"]},  //监听所有的url,你也可以通过*来匹配。
-            ["blocking"] 
+            ["blocking", "requestBody"] 
 );
 
 
@@ -319,6 +345,12 @@ function allBack(item,protocol,url,domain){
 	var locale=item.toUrl;
 	if(item.isdisk){
 		return {redirectUrl:getLocalFileUrl(locale)};
+	}else if(item.isReplace){
+		return {redirectUrl:getLocalFileUrl(url,null,null,item.toUrl)};
+	}else if(item.isAppend){
+		return {redirectUrl:getLocalFileUrl(url,item.toUrl)};
+	}else if(item.isUnshift){
+		return {redirectUrl:getLocalFileUrl(url,null,item.toUrl)};
 	}
 	var localUrl=jumpUrl(locale,protocol,url,domain);
 	

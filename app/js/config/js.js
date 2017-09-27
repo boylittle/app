@@ -159,7 +159,9 @@ Ext.require([
 ]);
 
 Ext.onReady(function(){
-    // Define our data model
+	
+	
+    // Define our data model// replace  append  unshift 
     Ext.define('Employee', {
         extend: 'Ext.data.Model',
         fields: [
@@ -173,6 +175,9 @@ Ext.onReady(function(){
 				{name:'equal',type:'bool'},
 			  { name: 'inject', type: 'bool' }, 
 			  { name: 'isdisk', type: 'bool' },
+			  { name: 'isReplace', type: 'bool' },
+			  { name: 'isAppend', type: 'bool' },
+			  { name: 'isUnshift', type: 'bool' },
 			   { name: 'ignore', type: 'bool' },
 			   { name: 'readyBefore', type: 'bool' }
         ]
@@ -315,6 +320,33 @@ Ext.onReady(function(){
             }
         }, {
 			xtype: 'checkcolumn',
+            header: $i18n('isReplace'),
+            dataIndex: 'isReplace',
+            width: 60,
+            editor: {
+                xtype: 'checkbox',
+                cls: 'x-grid-checkheader-editor'
+            }
+        }, {
+			xtype: 'checkcolumn',
+            header: $i18n('isAppend'),
+            dataIndex: 'isAppend',
+            width: 60,
+            editor: {
+                xtype: 'checkbox',
+                cls: 'x-grid-checkheader-editor'
+            }
+        }, {
+			xtype: 'checkcolumn',
+            header: $i18n('isUnshift'),
+            dataIndex: 'isUnshift',
+            width: 60,
+            editor: {
+                xtype: 'checkbox',
+                cls: 'x-grid-checkheader-editor'
+            }
+        }, {
+			xtype: 'checkcolumn',
             header: $i18n('ignore'),
             dataIndex: 'ignore',
             width: 60,
@@ -353,6 +385,9 @@ var newData={
 					equal:false,
 					inject:false,
 					isdisk:false,
+					isReplace:false,
+					isAppend:false,
+					isUnshift:false,
 					ignore:false,
 					readyBefore:false
 					
