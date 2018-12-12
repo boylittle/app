@@ -1,9 +1,9 @@
 {
 "b2c":{
-	"redesignCheckoutShippingBillingPage":"https://files.cnblogs.com/files/developer-ios/redesignCheckoutShippingBillingPage.js",
-	"cartPageRedesignForNewMobile":"https://files.cnblogs.com/files/developer-ios/cartPageRedesignForNewMobile.js"
+	"redesignCheckoutShippingBillingPage":"https://raw.githubusercontent.com/boylittle/app/master/b2c/redesignCheckoutShippingBillingPage.js",
+	"cartPageRedesignForNewMobile":"https://raw.githubusercontent.com/boylittle/app/master/b2c/cartPageRedesignForNewMobile.js"
 	}
 	
-,"b2b":{"redesignCheckoutShippingBillingPage":"https://files.cnblogs.com/files/developer-ios/redesignCheckoutShippingBillingPage.js"}
+,"b2b":{"redesignCheckoutShippingBillingPage":"https://raw.githubusercontent.com/boylittle/app/master/b2c/redesignCheckoutShippingBillingPage.js"}
 		
 }
