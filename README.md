@@ -1,5 +1,5 @@
 # app
-js
+js<br/>
 Set your browser language manually<br/>
 This project has already supported internationalization. Currently only English and Chinese are available.<br/>
 
