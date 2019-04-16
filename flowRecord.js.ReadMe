@@ -1,3 +1,5 @@
+https://github.com/boylittle/app/blob/master/flowRecord.js
+
 1.流程采集中，如果选中的元素是[A,BUTTON]内的元素，我会把它按钮作为事件源
 比如<button>你好呀<span>!!!!</span></button>,当点击到 span 元素，触发事件会被认为是 button.
 2.如果页面有多个id 对应的元素，将不再以 #id 的形式获取元素。会被联合的方式获取。
@@ -5,6 +7,7 @@
 4.websocket需要本机大家websocket 服务器，如果不用websocket 需要使用我的chrome插件。
 5.大家可以直接把代码copy 到 网页控制台，然后点击任意元素，在控制台获取queryPath
 6.本代码可以消减 一半以上的内容。这是因为，一些代码queryPath 的获取方式稍微不同。
+7.大家多提意见和建议让捕获的内容更丰富
 
 
 1. In the process collection, if the selected element is an element in [A, BUTTON], I will use it as the event source.
@@ -14,3 +17,4 @@ For example, <button>Hello <span>!!!!</span></button>, when you click on the spa
 4.websocket requires native websocket server, if you don't need websocket, you need to use my chrome plugin.
 5. You can copy the code directly to the web console, then click on any element to get the queryPath in the console.
 6. This code can reduce more than half of the content. This is because some code queryPaths are obtained in a slightly different way.
+7. Everyone gives more comments and suggestions to make the captured content richer.
