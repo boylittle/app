@@ -4,7 +4,7 @@ https://github.com/boylittle/app/blob/master/flowRecord.js
 比如<button>你好呀<span>!!!!</span></button>,当点击到 span 元素，触发事件会被认为是 button.
 2.如果页面有多个id 对应的元素，将不再以 #id 的形式获取元素。会被联合的方式获取。
 3.点击等事件，不做业务逻辑，仅仅搜集事件信息。
-4.websocket需要本机搭建websocket 服务器，如果不用websocket 需要使用我的chrome插件。
+4.websocket需要本机搭建websocket 服务器，如果不用websocket 需要使用我的chrome插件。如果只想看效果可以直接重写messageNotificationCenter ,打印控制台即可
 5.大家可以直接把代码copy 到 网页控制台，然后点击任意元素，在控制台获取queryPath
 6.本代码可以消减 一半以上的内容。这是因为，一些代码queryPath 的获取方式稍微不同。
 7.大家多提意见和建议让捕获的内容更丰富
@@ -14,7 +14,7 @@ https://github.com/boylittle/app/blob/master/flowRecord.js
 For example, <button>Hello <span>!!!!</span></button>, when you click on the span element, the trigger event will be considered button.
 2. If the page has multiple elements corresponding to the id, the element will no longer be obtained as #id. Will be obtained in a joint way.
 3. Click on other events, do not do business logic, just collect event information.
-4.websocket needs to build a websocket server locally. If you don't need websocket, you need to use my chrome plugin.
+4.websocket needs to build a websocket server locally. If you don't need websocket, you need to use my chrome plugin. If you just want to see the effect, you can directly rewrite the messageNotificationCenter, print the console.
 5. You can copy the code directly to the web console, then click on any element to get the queryPath in the console.
 6. This code can reduce more than half of the content. This is because some code queryPaths are obtained in a slightly different way.
 7. Everyone gives more comments and suggestions to make the captured content richer.
