@@ -1,5 +1,5 @@
 https://github.com/boylittle/app/blob/master/flowRecord.js
-
+0.使用原生js，避免了代码依赖
 1.流程采集中，如果选中的元素是[A,BUTTON]内的元素，我会把它按钮作为事件源
 比如<button>你好呀<span>!!!!</span></button>,当点击到 span 元素，触发事件会被认为是 button.
 2.如果页面有多个id 对应的元素，将不再以 #id 的形式获取元素。会被联合的方式获取。
@@ -9,7 +9,7 @@ https://github.com/boylittle/app/blob/master/flowRecord.js
 6.本代码可以消减 一半以上的内容。这是因为，一些代码queryPath 的获取方式稍微不同。
 7.大家多提意见和建议让捕获的内容更丰富更合理。
 
-
+0. Use native js to avoid code dependencies
 1. In the process collection, if the selected element is an element in [A, BUTTON], I will use it as the event source.
 For example, <button>Hello <span>!!!!</span></button>, when you click on the span element, the trigger event will be considered button.
 2. If the page has multiple elements corresponding to the id, the element will no longer be obtained as #id. Will be obtained in a joint way.
