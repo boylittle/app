@@ -7,7 +7,7 @@ https://github.com/boylittle/app/blob/master/flowRecord.js
 4.websocket需要本机搭建websocket 服务器，如果不用websocket 需要使用我的chrome插件。如果只想看效果可以直接重写messageNotificationCenter ,打印控制台即可
 5.大家可以直接把代码copy 到 网页控制台，然后点击任意元素，在控制台获取queryPath
 6.本代码可以消减 一半以上的内容。这是因为，一些代码queryPath 的获取方式稍微不同。
-7.大家多提意见和建议让捕获的内容更丰富
+7.大家多提意见和建议让捕获的内容更丰富更合理。
 
 
 1. In the process collection, if the selected element is an element in [A, BUTTON], I will use it as the event source.
